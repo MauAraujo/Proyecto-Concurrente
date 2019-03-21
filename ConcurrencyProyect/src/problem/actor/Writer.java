@@ -9,7 +9,7 @@ import problem.sharedresource.Buffer;
 public class Writer extends Thread implements Actor {
 
 	public static final String IS_WAITING = "0";
-	public static final String IS_WRITING = "2";
+	public static final String IS_WRITING = "1";
 	
 	public String controlcase = "0";
 	 
@@ -18,8 +18,9 @@ public class Writer extends Thread implements Actor {
 	private Buffer buff;
 	int quantum=100;
 	private String state = IS_WAITING;
-
-	public Writer(int chair, Buffer buff, int quantum) {
+int ID;
+	public Writer(int ID,int chair, Buffer buff, int quantum) {
+		this.ID=ID;
 		this.quantum=quantum;
 		this.buff = buff;
 	}
@@ -45,7 +46,7 @@ public class Writer extends Thread implements Actor {
 			 rnd = (int)(Math.random() * 5);
 			if(rnd == 1) {
 				controlcase = "1";
-				buff.use();
+				buff.use(ID);
 				state = IS_WRITING;
 				write();
 				sleep();

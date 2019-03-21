@@ -14,9 +14,9 @@ public class Chair implements SharedResource{
 	}
 
 	@Override
-	public void use() {
+	public void use(int PID) {
 		available++;
-		control.lock();
+		control.lock(PID);
 		
 	}
 

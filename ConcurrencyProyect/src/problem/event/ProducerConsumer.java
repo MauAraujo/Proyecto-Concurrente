@@ -3,7 +3,11 @@ package problem.event;
 import control.Control;
 import control.QTState;
 import control.State;
+import control.Proc.PIDC;
+import control.concurency.Monitor;
 import control.concurency.Mutex;
+import control.concurency.MutexWithCondVar;
+import control.concurency.Semaphore;
 import matrix.DynamicLenghtMatrix;
 import problem.Actor;
 import problem.Event;
@@ -19,16 +23,33 @@ public class ProducerConsumer implements Event {
 	private Control control;
 	private Consumer consumer;
 	private Producer producer;
-	private int quantum;
+	private int quantum; 
+	PIDC PID;
+	
 	public ProducerConsumer() {
 		
 	}
 
 	public ProducerConsumer(String ControlMethod,int quantum) { 
 		this.quantum=quantum;
-		producto = new Product(new Mutex());
-		this.consumer=new Consumer(producto, quantum);
-		this.producer=new Producer(producto, quantum);		
+
+		switch(ControlMethod){
+		case Control.MUTEX:
+			producto = new Product(new Mutex()); 
+		break;
+		case Control.MUTEXCONVAR: 
+			producto = new Product(new MutexWithCondVar(1, 2)); 
+			break;
+		case Control.SEMAPHORE: 
+			producto = new Product(new Semaphore()); 
+			break;
+		case Control.MONITOR: 
+			producto = new Product(new Monitor()); 
+			break;
+		}
+		PID=new PIDC(1);
+		this.consumer=new Consumer(PID.next(), producto, quantum);
+		this.producer=new Producer(PID.next(), producto, quantum);		
 
 	}
 

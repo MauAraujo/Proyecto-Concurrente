@@ -19,8 +19,10 @@ public class Diner extends Thread implements Actor {
 	private int chair;
 	int quantum=100;
 	private String state = IS_HUNGRY;
-
-	public Diner(int chair, Fork[] fork, int quantum) {
+	int ID;
+	
+	public Diner(int ID,int chair, Fork[] fork, int quantum) {
+		this.ID=ID;
 		this.quantum=quantum;
 		this.fork = fork;
 		this.chair = chair;
@@ -62,14 +64,14 @@ public class Diner extends Thread implements Actor {
 
 	public void takerightfork() {
 
-		fork[chair].use();
+		fork[chair].use(ID);
 	}
 
 	public void takeleftfork() {
 		if (chair == 0) {
-			fork[4].use();
+			fork[4].use(ID);
 		} else {
-			fork[chair - 1].use();
+			fork[chair - 1].use(ID);
 		}
 	}
 

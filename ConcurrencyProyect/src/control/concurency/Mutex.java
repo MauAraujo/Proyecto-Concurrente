@@ -7,7 +7,7 @@ public class Mutex implements Control {
 	private boolean flag;
 
 	@Override
-	public void lock() {
+	public void lock(int PID) {
 
 		while (flag) {
 			try {
@@ -25,19 +25,5 @@ public class Mutex implements Control {
 		doNotify();
 
 	}
-
-	private void doNotify() {
-
-		try {
-			this.notify();
-		} catch (IllegalMonitorStateException e) {
-		}
-	}
-
-	private void doWait() throws IllegalMonitorStateException {
-		try {
-			this.wait();
-		} catch (InterruptedException e) {
-		}
-	}
+ 
 }

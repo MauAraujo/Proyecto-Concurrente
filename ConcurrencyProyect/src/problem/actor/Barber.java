@@ -6,18 +6,16 @@ import problem.sharedresource.Chair;
 public class Barber extends Thread implements Actor{
 
 	public static final String IS_ON_CHAIR = "0";
-	public static final String IS_CUTTING_HAIR = "1";
-	
-	private int id;
+	public static final String IS_CUTTING_HAIR = "1"; 
 	
 	public String controlcase = "0";
 	private Chair chair;
 	int quantum=100;
 	private String state = IS_ON_CHAIR;
+	int ID = 0;
 	
-	
-	public Barber(int id, Chair sharedResource, int quantum) {
-		this.id = id;
+	public Barber(int ID, Chair sharedResource, int quantum) {
+		this.ID = ID;
 		this.chair = sharedResource;
 		this.quantum = quantum;
 	}
@@ -64,7 +62,7 @@ public class Barber extends Thread implements Actor{
 
 	public void sitOnChair() {
 
-		chair.use();
+		chair.use(ID);
 	}
 	
 	public void standUp() {

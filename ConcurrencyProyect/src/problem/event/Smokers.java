@@ -19,10 +19,8 @@ public class Smokers implements Event {
 
 	Smoker smoker0,smoker1,smoker2;
 	
-	public Smokers(String ControlMethod,int quantum) { 
+	public Smokers(int quantum) { 
 		this.quantum=quantum;
-		
-
 	}
 
 	@Override
@@ -30,12 +28,11 @@ public class Smokers implements Event {
 
 		smoker0=new Smoker(quantum);
 		smoker1=new Smoker(quantum);
-		smoker2=new Smoker(quantum);
-
-		arbiter=new Arbiter(smoker0,smoker1,smoker2);
+		smoker2=new Smoker(quantum); 
 		smoker0.start();
 		smoker1.start();
 		smoker2.start();
+		arbiter=new Arbiter(smoker0,smoker1,smoker2);
 		arbiter.start();
 	}
 
@@ -45,10 +42,10 @@ public class Smokers implements Event {
 
 		QTState qstate = new QTState(4);
 		 
-		qstate.add(0, new State(smoker0.state,smoker0.controlcase)); 
-		qstate.add(1, new State(smoker1.state,smoker0.controlcase)); 
-		qstate.add(2, new State(smoker2.state,smoker0.controlcase));  
-		qstate.add(3, new State(arbiter.state,smoker0.controlcase));
+		qstate.add(0, new State(smoker0.state,"0")); 
+		qstate.add(1, new State(smoker1.state,"0")); 
+		qstate.add(2, new State(smoker2.state,"0"));  
+		qstate.add(3, new State(arbiter.state,"0"));
 								
 		return qstate;
 

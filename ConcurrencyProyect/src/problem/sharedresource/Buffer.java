@@ -21,9 +21,9 @@ public class Buffer implements SharedResource {
 	}
 
 	@Override
-	public void use() {
+	public void use(int PID) {
 		available++;
-		control.lock();
+		control.lock(PID);
 	}
 
 	@Override

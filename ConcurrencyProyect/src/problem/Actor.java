@@ -1,10 +1,15 @@
 package problem;
 
+import control.Proc.PIDC;
+
 public interface Actor {
+	
 	String controlcase ="0";
 	String state = null;
 	int quantum = 100;
-
+	int ID =0;
+	PIDC pid=null;
+	
 	public default void sleep(){
 		try {
 			Thread.sleep(quantum + (int) (Math.random() * quantum * .10));

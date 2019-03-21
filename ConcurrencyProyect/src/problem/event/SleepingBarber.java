@@ -1,13 +1,18 @@
 package problem.event;
 
+import control.Control;
 import control.QTState;
 import control.State;
+import control.concurency.Monitor;
 import control.concurency.Mutex;
+import control.concurency.MutexWithCondVar;
+import control.concurency.Semaphore;
 import problem.Event;
 import problem.actor.Barber;
 import problem.actor.BarberCustomer;
 import problem.actor.Reader;
 import problem.actor.Writer;
+import problem.sharedresource.Buffer;
 import problem.sharedresource.Chair;
 
 public class SleepingBarber implements Event {
@@ -21,7 +26,24 @@ public class SleepingBarber implements Event {
 		this.quantum = quantum;
 		
 		//Recurso compartido
-		chair = new Chair(new Mutex());
+
+		switch(ControlMethod){
+		case Control.MUTEX:
+			chair = new Chair(new Mutex());
+		break;
+		case Control.MUTEXCONVAR:  
+			chair = new Chair(new MutexWithCondVar(1, 2)); 
+			break;
+		case Control.SEMAPHORE: 
+			chair = new Chair(new Semaphore());
+			break;
+		case Control.MONITOR: 
+			chair = new Chair(new Semaphore());
+			break;
+			
+		}
+		
+		
 		
 		//Barbero
 		barber = new Barber(0, chair, quantum);

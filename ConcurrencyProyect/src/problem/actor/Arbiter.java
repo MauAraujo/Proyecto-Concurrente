@@ -32,14 +32,15 @@ public class Arbiter extends Thread implements Actor {
 				s2=rand.nextInt(3); 
 			}while(s1!=s2);
 
-			sleep();
 			state="1";
+			sleep(); 
+			state="0";
 			s3=((s1+s2+1)%3);
 			switch(s3) {
 			case 0:
 				smoker0.smoke();
 				break;
-			case 1: 
+			case 1:
 				smoker1.smoke();
 				break;
 			case 2: 

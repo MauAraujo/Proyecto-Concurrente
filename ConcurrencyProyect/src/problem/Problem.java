@@ -13,29 +13,30 @@ public class Problem{
 
 
 	public EventRunner event;
-	public QTMatrix qtmatrix;
+	public QTMatrix qtmatrix;  
+	public int[] CScounter = new int[10];
 	
 	public Problem(String problem, String control, int qtmlenght,int quatum) {
 		switch (problem){
 		case PRODUCER_CONSUMER:
 			qtmatrix=new QTMatrix(2);
-			event = new EventRunner(qtmatrix ,PRODUCER_CONSUMER ,control ,qtmlenght ,quatum );
+			event = new EventRunner(qtmatrix ,PRODUCER_CONSUMER ,control ,qtmlenght ,quatum,CScounter);
 			break;
 		case PHILOSOPHERS_DINNER:
 			qtmatrix=new QTMatrix(5);
-			event = new EventRunner(qtmatrix, PHILOSOPHERS_DINNER, control,qtmlenght,quatum);
+			event = new EventRunner(qtmatrix, PHILOSOPHERS_DINNER, control,qtmlenght,quatum,CScounter);
 			break;
 		case READERS_WRITERS:
 			qtmatrix=new QTMatrix(8);
-			event = new EventRunner(qtmatrix, READERS_WRITERS, control,qtmlenght,quatum);
+			event = new EventRunner(qtmatrix, READERS_WRITERS, control,qtmlenght,quatum,CScounter);
 			break;
 		case SLEEPING_BARBER:
 			qtmatrix=new QTMatrix(6);
-			event = new EventRunner(qtmatrix, SLEEPING_BARBER, control,qtmlenght,quatum);
+			event = new EventRunner(qtmatrix, SLEEPING_BARBER, control,qtmlenght,quatum,CScounter);
 			break;
 		case SMOKERS:
 			qtmatrix=new QTMatrix(4);
-			event = new EventRunner(qtmatrix, SMOKERS, control,qtmlenght,quatum);
+			event = new EventRunner(qtmatrix, SMOKERS, control,qtmlenght,quatum,CScounter);
 			break;
 		default:
 

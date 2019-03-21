@@ -18,7 +18,7 @@ public class Reader extends Thread implements Actor {
 	int quantum=100;
 	private String state = IS_WAITING;
 
-	public Reader(int chair, Buffer buff, int quantum) {
+	public Reader(int PID,int chair, Buffer buff, int quantum) {
 		this.quantum=quantum;
 		this.buff = buff;
 	}

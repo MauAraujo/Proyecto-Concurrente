@@ -11,8 +11,8 @@ public class Product implements SharedResource {
 	}
 
 	@Override
-	public void use() { 
-		control.lock();
+	public void use(int PID) { 
+		control.lock(PID);
 	}
 
 	@Override

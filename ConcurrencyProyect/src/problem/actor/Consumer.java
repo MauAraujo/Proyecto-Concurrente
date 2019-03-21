@@ -11,8 +11,9 @@ public class Consumer extends Thread implements Actor {
 	public String controlcase="0";
 	private volatile boolean running = true;
 	public int quantum=100; 
-	
-	public Consumer(SharedResource product,int quantum) { 
+	int ID;
+	public Consumer(int ID,SharedResource product,int quantum) { 
+		this.ID=ID;
 		this.quantum=quantum;
 		this.product = product;
 	}
@@ -27,7 +28,7 @@ public class Consumer extends Thread implements Actor {
 			 
 			sleep();  
 			controlcase="1";   
-			product.use(); 
+			product.use(ID); 
 			state="1";   
 			sleep();  
 			controlcase="0";

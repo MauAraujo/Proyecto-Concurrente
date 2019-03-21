@@ -8,12 +8,11 @@ public class BarberCustomer extends Thread implements Actor {
 
 	public static final String IS_ON_CHAIR = "0";
 	public static final String IS_WAITING = "1"; 
+	int ID;
 	
-	private int id;
-	
-	public BarberCustomer(int id, Chair chair, int quantum) {
+	public BarberCustomer(int ID, Chair chair, int quantum) {
 		
-		this.id = id;
+		this.ID = ID;
 		this.chair = chair;
 		this.quantum = quantum;
 	}
@@ -55,15 +54,13 @@ public class BarberCustomer extends Thread implements Actor {
 				
 				state = IS_WAITING; 
 				sleep(); 
-			
-			
-
+			 
 		}
 	}
 
 	public void sitOnChair() {
 
-		chair.use();
+		chair.use(ID);
 	}
 	
 	public void standUp() {

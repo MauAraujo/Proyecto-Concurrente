@@ -10,8 +10,10 @@ public class EventRunner extends Thread {
 	public QTMatrix qtmatrix;
 	int qtmlenght;
 	private volatile boolean running = false;
-
-	EventRunner(QTMatrix qtmatrix, String event, String control,int qtmlenght, int quatum) { 
+	public int[] CScounter = new int[10];
+	
+	EventRunner(QTMatrix qtmatrix, String event, String control,int qtmlenght, int quatum,int[] CScounter) { 
+		this.CScounter=CScounter;
 		this.qtmatrix=qtmatrix;
 		this.qtmlenght=qtmlenght;
 		switch (event) {
@@ -28,7 +30,7 @@ public class EventRunner extends Thread {
 			this.event = new SleepingBarber(control,quatum);
 			break;
 		case Problem.SMOKERS:
-			this.event = new Smokers(control,quatum);
+			this.event = new Smokers(quatum);
 			break;
 		default:
 
@@ -41,7 +43,6 @@ public class EventRunner extends Thread {
 		event.start();
 		while (true) {
 			while (running && qtmatrix.lenght() < qtmlenght) {
-
 				logrevision(event.getstates());
 			}
 
@@ -52,7 +53,27 @@ public class EventRunner extends Thread {
 		if (!qtmatrix.isLastQT(Threadstates)) {
 
 			qtmatrix.print();
+
+			CSanalyze();
 			qtmatrix.updateQTMatrix(Threadstates); 
+
 		}
 	}
+
+	private void CSanalyze() { 
+		for(int r=0;r<qtmatrix.height();r++) {  
+			CScounter[r]=0;
+		} 
+		for(int r=0;r<qtmatrix.height();r++) {// N    PROCESO  
+			for(int c=1;c<qtmatrix.lenght();c++) {
+					if((qtmatrix.get(r,c).state=="1") && (qtmatrix.get(r,c-1).state!="1") ) {
+						CScounter[r]++;
+					}
+			}
+		}
+		for(int r=0;r<qtmatrix.height();r++) {  
+				System.out.println(CScounter[r]); 
+		} 
+	}
+	
 }
